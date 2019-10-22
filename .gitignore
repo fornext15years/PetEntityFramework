@@ -3,3 +3,12 @@
 ################################################################################
 
 /.vs/PetEntityFramework
+/packages
+/PetConsoleCore/bin/Debug/netcoreapp2.2
+/PetConsoleCore/obj
+/PetConsoleNetFramework/bin/Debug
+/PetConsoleNetFramework/obj/Debug
+/PetDataNetFramework/bin/Debug
+/PetDataNetFramework/obj/Debug
+/PetDataCore/bin/Debug/netcoreapp2.2
+/PetDataCore/obj

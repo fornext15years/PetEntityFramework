@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PetDemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="BBPActivityID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowVersion" Type="bigint" Nullable="false" />
+          <Property Name="ActivityTypeID" Type="bigint" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="ScheduleDueDate" Type="datetime" />
+          <Property Name="Unannounced" Type="int" Nullable="false" />
+          <Property Name="StandardsVersion" Type="int" />
+        </EntityType>
+        <EntityType Name="ActivityType">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowVersion" Type="bigint" Nullable="false" />
+          <Property Name="Code" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Assignment">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityID" Type="bigint" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="RowVersion" Type="bigint" Nullable="false" />
+          <Property Name="ScopeOfEOs" Type="nvarchar" MaxLength="300" />
+          <Property Name="EmailSent" Type="bit" />
+          <Property Name="EmailSentDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="int" Nullable="false" />
+          <Property Name="ActivityStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowVersion" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Surveyor">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RowVersion" Type="bigint" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" />
+          <Property Name="Token" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="SurveyorAssignmentRole">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyorID" Type="bigint" Nullable="false" />
+          <Property Name="RowVersion" Type="bigint" Nullable="false" />
+          <Property Name="AssignmentID" Type="bigint" Nullable="false" />
+          <Property Name="InActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Activity_ActivityType">
+          <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityType">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="ActivityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_Activity">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="Assignment" Type="Self.Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Assignment">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_Assignment">
+          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
+          <End Role="Assignment1" Type="Self.Assignment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Assignment">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Assignment1">
+              <PropertyRef Name="Idx" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyorRole_Assignment">
+          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
+          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assignment">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="SurveyorAssignmentRole">
+              <PropertyRef Name="AssignmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyorRole_Surveyor">
+          <End Role="Surveyor" Type="Self.Surveyor" Multiplicity="1" />
+          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Surveyor">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="SurveyorAssignmentRole">
+              <PropertyRef Name="SurveyorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetDemoModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Assignment" EntityType="Self.Assignment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Surveyor" EntityType="Self.Surveyor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyorAssignmentRole" EntityType="Self.SurveyorAssignmentRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Activity_ActivityType" Association="Self.FK_Activity_ActivityType">
+            <End Role="ActivityType" EntitySet="ActivityType" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Status" Association="Self.FK_Activity_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_Activity" Association="Self.FK_Assignment_Activity">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Assignment" EntitySet="Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_Assignment" Association="Self.FK_Assignment_Assignment">
+            <End Role="Assignment" EntitySet="Assignment" />
+            <End Role="Assignment1" EntitySet="Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyorRole_Assignment" Association="Self.FK_SurveyorRole_Assignment">
+            <End Role="Assignment" EntitySet="Assignment" />
+            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyorRole_Surveyor" Association="Self.FK_SurveyorRole_Surveyor">
+            <End Role="Surveyor" EntitySet="Surveyor" />
+            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PetDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BBPActivityID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowVersion" Type="Int64" Nullable="false" />
+          <Property Name="ActivityTypeID" Type="Int64" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleDueDate" Type="DateTime" Precision="3" />
+          <Property Name="Unannounced" Type="Int32" Nullable="false" />
+          <Property Name="StandardsVersion" Type="Int32" />
+          <NavigationProperty Name="ActivityType" Relationship="Self.FK_Activity_ActivityType" FromRole="Activity" ToRole="ActivityType" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Activity_Status" FromRole="Activity" ToRole="Status" />
+          <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignment_Activity" FromRole="Activity" ToRole="Assignment" />
+        </EntityType>
+        <EntityType Name="ActivityType">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowVersion" Type="Int64" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Activities" Relationship="Self.FK_Activity_ActivityType" FromRole="ActivityType" ToRole="Activity" />
+        </EntityType>
+        <EntityType Name="Assignment">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityID" Type="Int64" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RowVersion" Type="Int64" Nullable="false" />
+          <Property Name="ScopeOfEOs" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="EmailSent" Type="Boolean" />
+          <Property Name="EmailSentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_Assignment_Activity" FromRole="Assignment" ToRole="Activity" />
+          <NavigationProperty Name="Assignment1" Relationship="Self.FK_Assignment_Assignment" FromRole="Assignment" ToRole="Assignment1" />
+          <NavigationProperty Name="Assignment2" Relationship="Self.FK_Assignment_Assignment" FromRole="Assignment1" ToRole="Assignment" />
+          <NavigationProperty Name="SurveyorAssignmentRoles" Relationship="Self.FK_SurveyorRole_Assignment" FromRole="Assignment" ToRole="SurveyorAssignmentRole" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="Int32" Nullable="false" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowVersion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Activities" Relationship="Self.FK_Activity_Status" FromRole="Status" ToRole="Activity" />
+        </EntityType>
+        <EntityType Name="Surveyor">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowVersion" Type="Int64" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Token" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SurveyorAssignmentRoles" Relationship="Self.FK_SurveyorRole_Surveyor" FromRole="Surveyor" ToRole="SurveyorAssignmentRole" />
+        </EntityType>
+        <EntityType Name="SurveyorAssignmentRole">
+          <Key>
+            <PropertyRef Name="Idx" />
+          </Key>
+          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyorID" Type="Int64" Nullable="false" />
+          <Property Name="RowVersion" Type="Int64" Nullable="false" />
+          <Property Name="AssignmentID" Type="Int64" Nullable="false" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Assignment" Relationship="Self.FK_SurveyorRole_Assignment" FromRole="SurveyorAssignmentRole" ToRole="Assignment" />
+          <NavigationProperty Name="Surveyor" Relationship="Self.FK_SurveyorRole_Surveyor" FromRole="SurveyorAssignmentRole" ToRole="Surveyor" />
+        </EntityType>
+        <Association Name="FK_Activity_ActivityType">
+          <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityType">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="ActivityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_Activity">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="Assignment" Type="Self.Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Assignment">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_Assignment">
+          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
+          <End Role="Assignment1" Type="Self.Assignment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Assignment">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="Assignment1">
+              <PropertyRef Name="Idx" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyorRole_Assignment">
+          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
+          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assignment">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="SurveyorAssignmentRole">
+              <PropertyRef Name="AssignmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyorRole_Surveyor">
+          <End Role="Surveyor" Type="Self.Surveyor" Multiplicity="1" />
+          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Surveyor">
+              <PropertyRef Name="Idx" />
+            </Principal>
+            <Dependent Role="SurveyorAssignmentRole">
+              <PropertyRef Name="SurveyorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetDemoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activities" EntityType="Self.Activity" />
+          <EntitySet Name="ActivityTypes" EntityType="Self.ActivityType" />
+          <EntitySet Name="Assignments" EntityType="Self.Assignment" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Surveyors" EntityType="Self.Surveyor" />
+          <EntitySet Name="SurveyorAssignmentRoles" EntityType="Self.SurveyorAssignmentRole" />
+          <AssociationSet Name="FK_Activity_ActivityType" Association="Self.FK_Activity_ActivityType">
+            <End Role="ActivityType" EntitySet="ActivityTypes" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Status" Association="Self.FK_Activity_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_Activity" Association="Self.FK_Assignment_Activity">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="Assignment" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_Assignment" Association="Self.FK_Assignment_Assignment">
+            <End Role="Assignment" EntitySet="Assignments" />
+            <End Role="Assignment1" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyorRole_Assignment" Association="Self.FK_SurveyorRole_Assignment">
+            <End Role="Assignment" EntitySet="Assignments" />
+            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyorRole_Surveyor" Association="Self.FK_SurveyorRole_Surveyor">
+            <End Role="Surveyor" EntitySet="Surveyors" />
+            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PetDemoModelStoreContainer" CdmEntityContainer="PetDemoEntities">
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="PetDemoModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="Idx" ColumnName="Idx" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BBPActivityID" ColumnName="BBPActivityID" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="ScheduleDueDate" ColumnName="ScheduleDueDate" />
+                <ScalarProperty Name="Unannounced" ColumnName="Unannounced" />
+                <ScalarProperty Name="StandardsVersion" ColumnName="StandardsVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityTypes">
+            <EntityTypeMapping TypeName="PetDemoModel.ActivityType">
+              <MappingFragment StoreEntitySet="ActivityType">
+                <ScalarProperty Name="Idx" ColumnName="Idx" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Assignments">
+            <EntityTypeMapping TypeName="PetDemoModel.Assignment">
+              <MappingFragment StoreEntitySet="Assignment">
+                <ScalarProperty Name="Idx" ColumnName="Idx" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="ScopeOfEOs" ColumnName="ScopeOfEOs" />
+                <ScalarProperty Name="EmailSent" ColumnName="EmailSent" />
+                <ScalarProperty Name="EmailSentDate" ColumnName="EmailSentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="PetDemoModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Idx" ColumnName="Idx" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Surveyors">
+            <EntityTypeMapping TypeName="PetDemoModel.Surveyor">
+              <MappingFragment StoreEntitySet="Surveyor">
+                <ScalarProperty Name="Idx" ColumnName="Idx" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurveyorAssignmentRoles">
+            <EntityTypeMapping TypeName="PetDemoModel.SurveyorAssignmentRole">
+              <MappingFragment StoreEntitySet="SurveyorAssignmentRole">
+                <ScalarProperty Name="Idx" ColumnName="Idx" />
+                <ScalarProperty Name="SurveyorID" ColumnName="SurveyorID" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

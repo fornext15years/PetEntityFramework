@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="90e8520104654cd1bf91efbdfcd803ea" Name="Diagram1">
+        <EntityTypeShape EntityType="PetDemoModel.Activity" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetDemoModel.ActivityType" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetDemoModel.Assignment" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetDemoModel.Status" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetDemoModel.Surveyor" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetDemoModel.SurveyorAssignmentRole" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="PetDemoModel.FK_Activity_ActivityType" ManuallyRouted="false" />
+        <AssociationConnector Association="PetDemoModel.FK_Activity_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="PetDemoModel.FK_Assignment_Activity" ManuallyRouted="false" />
+        <AssociationConnector Association="PetDemoModel.FK_Assignment_Assignment" ManuallyRouted="false" />
+        <AssociationConnector Association="PetDemoModel.FK_SurveyorRole_Assignment" ManuallyRouted="false" />
+        <AssociationConnector Association="PetDemoModel.FK_SurveyorRole_Surveyor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
