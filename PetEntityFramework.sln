@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PetDataDatabaseFirst", "PetDataDatabaseFirst", "{B18F55F8-C0A8-43C6-8BDE-24134B43B682}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetDataCore", "PetDataCore\PetDataCore.csproj", "{2EA5C2BB-7BFA-46ED-9C00-01841F90F2BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetDataCore", "PetDataCore\PetDataCore.csproj", "{2EA5C2BB-7BFA-46ED-9C00-01841F90F2BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetDataNetFramework", "PetDataNetFramework\PetDataNetFramework.csproj", "{010AB8DC-C6C2-4DB1-8D73-EDD3296049D4}"
 EndProject
@@ -18,7 +18,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PetConsole", "PetConsole", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetConsoleNetFramework", "PetConsoleNetFramework\PetConsoleNetFramework.csproj", "{5D35A740-4B8A-4234-93EC-71D8193FF881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetConsoleCore", "PetConsoleCore\PetConsoleCore.csproj", "{C8FC5B2B-56E7-476E-92D7-481F482B069A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetConsoleCore", "PetConsoleCore\PetConsoleCore.csproj", "{C8FC5B2B-56E7-476E-92D7-481F482B069A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PetDataCodeFirst", "PetDataCodeFirst", "{3C8CCBC2-F2A7-44D4-8330-86200AFD1275}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetDataNetFrameworkCodeFirst", "PetDataNetFrameworkCodeFirst\PetDataNetFrameworkCodeFirst.csproj", "{C5822A4D-0D64-4621-B727-61CFB3B5A246}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetConsoleNetFrameworkCodeFirst", "PetConsoleNetFrameworkCodeFirst\PetConsoleNetFrameworkCodeFirst.csproj", "{5AA47F03-11E0-4CE2-A1E5-33E260964FAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetDataCoreCodeFirst", "PetDataCoreCodeFirst\PetDataCoreCodeFirst.csproj", "{60698C60-6A43-4068-BDC8-156006C9EBA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetConsoleCoreCodeFirst", "PetConsoleCoreCodeFirst\PetConsoleCoreCodeFirst.csproj", "{4A8D6715-80E1-419C-BAC5-4179F50C190A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +52,22 @@ Global
 		{C8FC5B2B-56E7-476E-92D7-481F482B069A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8FC5B2B-56E7-476E-92D7-481F482B069A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8FC5B2B-56E7-476E-92D7-481F482B069A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5822A4D-0D64-4621-B727-61CFB3B5A246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5822A4D-0D64-4621-B727-61CFB3B5A246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5822A4D-0D64-4621-B727-61CFB3B5A246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5822A4D-0D64-4621-B727-61CFB3B5A246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AA47F03-11E0-4CE2-A1E5-33E260964FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AA47F03-11E0-4CE2-A1E5-33E260964FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AA47F03-11E0-4CE2-A1E5-33E260964FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AA47F03-11E0-4CE2-A1E5-33E260964FAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60698C60-6A43-4068-BDC8-156006C9EBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60698C60-6A43-4068-BDC8-156006C9EBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60698C60-6A43-4068-BDC8-156006C9EBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60698C60-6A43-4068-BDC8-156006C9EBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A8D6715-80E1-419C-BAC5-4179F50C190A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A8D6715-80E1-419C-BAC5-4179F50C190A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A8D6715-80E1-419C-BAC5-4179F50C190A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A8D6715-80E1-419C-BAC5-4179F50C190A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +77,10 @@ Global
 		{010AB8DC-C6C2-4DB1-8D73-EDD3296049D4} = {B18F55F8-C0A8-43C6-8BDE-24134B43B682}
 		{5D35A740-4B8A-4234-93EC-71D8193FF881} = {92FC38F5-E7F5-41D3-93B2-26C2222F0B7F}
 		{C8FC5B2B-56E7-476E-92D7-481F482B069A} = {92FC38F5-E7F5-41D3-93B2-26C2222F0B7F}
+		{C5822A4D-0D64-4621-B727-61CFB3B5A246} = {3C8CCBC2-F2A7-44D4-8330-86200AFD1275}
+		{5AA47F03-11E0-4CE2-A1E5-33E260964FAA} = {92FC38F5-E7F5-41D3-93B2-26C2222F0B7F}
+		{60698C60-6A43-4068-BDC8-156006C9EBA7} = {3C8CCBC2-F2A7-44D4-8330-86200AFD1275}
+		{4A8D6715-80E1-419C-BAC5-4179F50C190A} = {92FC38F5-E7F5-41D3-93B2-26C2222F0B7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B39EE09-0F68-48A0-92DA-1815254821F5}

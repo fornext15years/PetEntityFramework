@@ -12,25 +12,21 @@ namespace PetDataNetFramework.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Surveyor
+    public partial class Teacher
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Surveyor()
+        public Teacher()
         {
-            this.SurveyorAssignmentRoles = new HashSet<SurveyorAssignmentRole>();
+            this.Courses = new HashSet<Course>();
         }
     
-        public long Idx { get; set; }
-        public string UserName { get; set; }
-        public long RowVersion { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Password { get; set; }
-        public string Token { get; set; }
+        public int TeacherId { get; set; }
+        public string TeacherName { get; set; }
+        public Nullable<int> StandardId { get; set; }
+        public Nullable<TeacherType> TeacherType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurveyorAssignmentRole> SurveyorAssignmentRoles { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        public virtual Standard Standard { get; set; }
     }
 }

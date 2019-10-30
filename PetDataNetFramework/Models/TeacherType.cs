@@ -10,17 +10,11 @@
 namespace PetDataNetFramework.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SurveyorAssignmentRole
+    public enum TeacherType : int
     {
-        public long Idx { get; set; }
-        public long SurveyorID { get; set; }
-        public long RowVersion { get; set; }
-        public long AssignmentID { get; set; }
-        public bool InActive { get; set; }
-    
-        public virtual Assignment Assignment { get; set; }
-        public virtual Surveyor Surveyor { get; set; }
+        Permanent = 1,
+        Contract = 2,
+        Guest = 3
     }
 }

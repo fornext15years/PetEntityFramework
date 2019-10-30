@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity.Infrastructure.Interception;
+using PetDataNetFramework.Log;
 
 namespace PetDataNetFramework.Models
 {
@@ -12,6 +14,10 @@ namespace PetDataNetFramework.Models
         public PetDemoEntities(string connectionString)
             :base(connectionString)
         {
+            //this.Configuration.ProxyCreationEnabled = false;
+            //this.Configuration.LazyLoadingEnabled = false;
+            //DbInterception.Add(new EFCommandInterceptor());
+            
         }
     }
 }

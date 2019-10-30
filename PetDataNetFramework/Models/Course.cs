@@ -12,20 +12,21 @@ namespace PetDataNetFramework.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ActivityType
+    public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ActivityType()
+        public Course()
         {
-            this.Activities = new HashSet<Activity>();
+            this.Students = new HashSet<Student>();
         }
     
-        public long Idx { get; set; }
-        public string Type { get; set; }
-        public long RowVersion { get; set; }
-        public string Code { get; set; }
+        public int CourseId { get; set; }
+        public string CourseName { get; set; }
+        public System.Data.Entity.Spatial.DbGeography Location { get; set; }
+        public Nullable<int> TeacherId { get; set; }
     
+        public virtual Teacher Teacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

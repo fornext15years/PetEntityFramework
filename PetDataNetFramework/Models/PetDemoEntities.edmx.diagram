@@ -5,18 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="90e8520104654cd1bf91efbdfcd803ea" Name="Diagram1">
-        <EntityTypeShape EntityType="PetDemoModel.Activity" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetDemoModel.ActivityType" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetDemoModel.Assignment" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetDemoModel.Status" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetDemoModel.Surveyor" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetDemoModel.SurveyorAssignmentRole" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
-        <AssociationConnector Association="PetDemoModel.FK_Activity_ActivityType" ManuallyRouted="false" />
-        <AssociationConnector Association="PetDemoModel.FK_Activity_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="PetDemoModel.FK_Assignment_Activity" ManuallyRouted="false" />
-        <AssociationConnector Association="PetDemoModel.FK_Assignment_Assignment" ManuallyRouted="false" />
-        <AssociationConnector Association="PetDemoModel.FK_SurveyorRole_Assignment" ManuallyRouted="false" />
-        <AssociationConnector Association="PetDemoModel.FK_SurveyorRole_Surveyor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PetDemoModel.Course" Width="1.5" PointX="5.25" PointY="5.75" />
+        <EntityTypeShape EntityType="PetDemoModel.Standard" Width="1.5" PointX="0.75" PointY="2.75" />
+        <EntityTypeShape EntityType="PetDemoModel.Student" Width="1.5" PointX="7.5" PointY="4.125" FillColor="Fuchsia" />
+        <EntityTypeShape EntityType="PetDemoModel.StudentAddress" Width="1.5" PointX="9.75" PointY="4.25" />
+        <EntityTypeShape EntityType="PetDemoModel.Teacher" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="PetDemoModel.View_StudentCourse" Width="1.5" PointX="2.75" PointY="0.75" />
+        <AssociationConnector Association="PetDemoModel.FK_Course_Teacher" />
+        <AssociationConnector Association="PetDemoModel.FK_Student_Standard" />
+        <AssociationConnector Association="PetDemoModel.FK_Teacher_Standard" />
+        <AssociationConnector Association="PetDemoModel.FK_StudentAddress_Student" />
+        <AssociationConnector Association="PetDemoModel.StudentCourse" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,26 +12,22 @@ namespace PetDataNetFramework.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Assignment
+    public partial class Standard
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Assignment()
+        public Standard()
         {
-            this.SurveyorAssignmentRoles = new HashSet<SurveyorAssignmentRole>();
+            this.Students = new HashSet<Student>();
+            this.Teachers = new HashSet<Teacher>();
         }
     
-        public long Idx { get; set; }
-        public long ActivityID { get; set; }
-        public System.DateTime Created { get; set; }
-        public long RowVersion { get; set; }
-        public string ScopeOfEOs { get; set; }
-        public Nullable<bool> EmailSent { get; set; }
-        public Nullable<System.DateTime> EmailSentDate { get; set; }
+        public int StandardId { get; set; }
+        public string StandardName { get; set; }
+        public string Description { get; set; }
     
-        public virtual Activity Activity { get; set; }
-        public virtual Assignment Assignment1 { get; set; }
-        public virtual Assignment Assignment2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurveyorAssignmentRole> SurveyorAssignmentRoles { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Teacher> Teachers { get; set; }
     }
 }

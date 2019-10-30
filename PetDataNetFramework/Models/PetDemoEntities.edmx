@@ -4,451 +4,470 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PetDemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Activity">
+    <Schema Namespace="PetDemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course">
           <Key>
-            <PropertyRef Name="Idx" />
+            <PropertyRef Name="CourseId" />
           </Key>
-          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="BBPActivityID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RowVersion" Type="bigint" Nullable="false" />
-          <Property Name="ActivityTypeID" Type="bigint" Nullable="false" />
-          <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
-          <Property Name="StatusID" Type="int" Nullable="false" />
-          <Property Name="ScheduleDueDate" Type="datetime" />
-          <Property Name="Unannounced" Type="int" Nullable="false" />
-          <Property Name="StandardsVersion" Type="int" />
+          <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="50" />
+          <Property Name="Location" Type="geography" />
+          <Property Name="TeacherId" Type="int" />
         </EntityType>
-        <EntityType Name="ActivityType">
+        <EntityType Name="Standard">
           <Key>
-            <PropertyRef Name="Idx" />
+            <PropertyRef Name="StandardId" />
           </Key>
-          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RowVersion" Type="bigint" Nullable="false" />
-          <Property Name="Code" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="StandardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StandardName" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Assignment">
+        <EntityType Name="Student">
           <Key>
-            <PropertyRef Name="Idx" />
+            <PropertyRef Name="StudentID" />
           </Key>
-          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ActivityID" Type="bigint" Nullable="false" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="RowVersion" Type="bigint" Nullable="false" />
-          <Property Name="ScopeOfEOs" Type="nvarchar" MaxLength="300" />
-          <Property Name="EmailSent" Type="bit" />
-          <Property Name="EmailSentDate" Type="datetime" />
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="50" />
+          <Property Name="StandardId" Type="int" />
+          <Property Name="RowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
-        <EntityType Name="Status">
+        <EntityType Name="StudentAddress">
           <Key>
-            <PropertyRef Name="Idx" />
+            <PropertyRef Name="StudentID" />
           </Key>
-          <Property Name="Idx" Type="int" Nullable="false" />
-          <Property Name="ActivityStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RowVersion" Type="bigint" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="Surveyor">
+        <EntityType Name="StudentCourse">
           <Key>
-            <PropertyRef Name="Idx" />
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="CourseId" />
           </Key>
-          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="RowVersion" Type="bigint" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nchar" MaxLength="10" />
-          <Property Name="Token" Type="nvarchar" MaxLength="256" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="SurveyorAssignmentRole">
+        <EntityType Name="Teacher">
           <Key>
-            <PropertyRef Name="Idx" />
+            <PropertyRef Name="TeacherId" />
           </Key>
-          <Property Name="Idx" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SurveyorID" Type="bigint" Nullable="false" />
-          <Property Name="RowVersion" Type="bigint" Nullable="false" />
-          <Property Name="AssignmentID" Type="bigint" Nullable="false" />
-          <Property Name="InActive" Type="bit" Nullable="false" />
+          <Property Name="TeacherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeacherName" Type="varchar" MaxLength="50" />
+          <Property Name="StandardId" Type="int" />
+          <Property Name="TeacherType" Type="int" />
         </EntityType>
-        <Association Name="FK_Activity_ActivityType">
-          <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="1" />
-          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PetDemo.dbo.View_StudentCourse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_StudentCourse">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="50" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Course_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ActivityType">
-              <PropertyRef Name="Idx" />
+            <Principal Role="Teacher">
+              <PropertyRef Name="TeacherId" />
             </Principal>
-            <Dependent Role="Activity">
-              <PropertyRef Name="ActivityTypeID" />
+            <Dependent Role="Course">
+              <PropertyRef Name="TeacherId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Activity_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+        <Association Name="FK_Student_Standard">
+          <End Role="Standard" Type="Self.Standard" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="Idx" />
+            <Principal Role="Standard">
+              <PropertyRef Name="StandardId" />
             </Principal>
-            <Dependent Role="Activity">
-              <PropertyRef Name="StatusID" />
+            <Dependent Role="Student">
+              <PropertyRef Name="StandardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Assignment_Activity">
-          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="*" />
+        <Association Name="FK_StudentAddress_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentAddress" Type="Self.StudentAddress" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Activity">
-              <PropertyRef Name="Idx" />
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
             </Principal>
-            <Dependent Role="Assignment">
-              <PropertyRef Name="ActivityID" />
+            <Dependent Role="StudentAddress">
+              <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Assignment_Assignment">
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
-          <End Role="Assignment1" Type="Self.Assignment" Multiplicity="0..1" />
+        <Association Name="FK_StudentCourse_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="StudentCourse" Type="Self.StudentCourse" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Assignment">
-              <PropertyRef Name="Idx" />
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
             </Principal>
-            <Dependent Role="Assignment1">
-              <PropertyRef Name="Idx" />
+            <Dependent Role="StudentCourse">
+              <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyorRole_Assignment">
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
-          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
+        <Association Name="FK_StudentCourse_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentCourse" Type="Self.StudentCourse" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Assignment">
-              <PropertyRef Name="Idx" />
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
             </Principal>
-            <Dependent Role="SurveyorAssignmentRole">
-              <PropertyRef Name="AssignmentID" />
+            <Dependent Role="StudentCourse">
+              <PropertyRef Name="StudentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyorRole_Surveyor">
-          <End Role="Surveyor" Type="Self.Surveyor" Multiplicity="1" />
-          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
+        <Association Name="FK_Teacher_Standard">
+          <End Role="Standard" Type="Self.Standard" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Surveyor">
-              <PropertyRef Name="Idx" />
+            <Principal Role="Standard">
+              <PropertyRef Name="StandardId" />
             </Principal>
-            <Dependent Role="SurveyorAssignmentRole">
-              <PropertyRef Name="SurveyorID" />
+            <Dependent Role="Teacher">
+              <PropertyRef Name="StandardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetCoursesByStudentId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertStudentInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StandardId" Type="int" Mode="In" />
+          <Parameter Name="StudentName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+          <Parameter Name="StandardId" Type="int" Mode="In" />
+          <Parameter Name="StudentName" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="PetDemoModelStoreContainer">
-          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Assignment" EntityType="Self.Assignment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Surveyor" EntityType="Self.Surveyor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyorAssignmentRole" EntityType="Self.SurveyorAssignmentRole" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Activity_ActivityType" Association="Self.FK_Activity_ActivityType">
-            <End Role="ActivityType" EntitySet="ActivityType" />
-            <End Role="Activity" EntitySet="Activity" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Standard" EntityType="Self.Standard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAddress" EntityType="Self.StudentAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentCourse" EntityType="Self.StudentCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_StudentCourse" EntityType="Self.View_StudentCourse" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_StudentCourse].[StudentID] AS [StudentID], 
+    [View_StudentCourse].[StudentName] AS [StudentName], 
+    [View_StudentCourse].[CourseId] AS [CourseId], 
+    [View_StudentCourse].[CourseName] AS [CourseName]
+    FROM [dbo].[View_StudentCourse] AS [View_StudentCourse]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Course_Teacher" Association="Self.FK_Course_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Course" EntitySet="Course" />
           </AssociationSet>
-          <AssociationSet Name="FK_Activity_Status" Association="Self.FK_Activity_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Activity" EntitySet="Activity" />
+          <AssociationSet Name="FK_Student_Standard" Association="Self.FK_Student_Standard">
+            <End Role="Standard" EntitySet="Standard" />
+            <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assignment_Activity" Association="Self.FK_Assignment_Activity">
-            <End Role="Activity" EntitySet="Activity" />
-            <End Role="Assignment" EntitySet="Assignment" />
+          <AssociationSet Name="FK_StudentAddress_Student" Association="Self.FK_StudentAddress_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentAddress" EntitySet="StudentAddress" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assignment_Assignment" Association="Self.FK_Assignment_Assignment">
-            <End Role="Assignment" EntitySet="Assignment" />
-            <End Role="Assignment1" EntitySet="Assignment" />
+          <AssociationSet Name="FK_StudentCourse_Course" Association="Self.FK_StudentCourse_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="StudentCourse" EntitySet="StudentCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyorRole_Assignment" Association="Self.FK_SurveyorRole_Assignment">
-            <End Role="Assignment" EntitySet="Assignment" />
-            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRole" />
+          <AssociationSet Name="FK_StudentCourse_Student" Association="Self.FK_StudentCourse_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentCourse" EntitySet="StudentCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyorRole_Surveyor" Association="Self.FK_SurveyorRole_Surveyor">
-            <End Role="Surveyor" EntitySet="Surveyor" />
-            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRole" />
+          <AssociationSet Name="FK_Teacher_Standard" Association="Self.FK_Teacher_Standard">
+            <End Role="Standard" EntitySet="Standard" />
+            <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PetDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Activity">
-          <Key>
-            <PropertyRef Name="Idx" />
-          </Key>
-          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BBPActivityID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RowVersion" Type="Int64" Nullable="false" />
-          <Property Name="ActivityTypeID" Type="Int64" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StatusID" Type="Int32" Nullable="false" />
-          <Property Name="ScheduleDueDate" Type="DateTime" Precision="3" />
-          <Property Name="Unannounced" Type="Int32" Nullable="false" />
-          <Property Name="StandardsVersion" Type="Int32" />
-          <NavigationProperty Name="ActivityType" Relationship="Self.FK_Activity_ActivityType" FromRole="Activity" ToRole="ActivityType" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Activity_Status" FromRole="Activity" ToRole="Status" />
-          <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignment_Activity" FromRole="Activity" ToRole="Assignment" />
-        </EntityType>
-        <EntityType Name="ActivityType">
-          <Key>
-            <PropertyRef Name="Idx" />
-          </Key>
-          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RowVersion" Type="Int64" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Activities" Relationship="Self.FK_Activity_ActivityType" FromRole="ActivityType" ToRole="Activity" />
-        </EntityType>
-        <EntityType Name="Assignment">
-          <Key>
-            <PropertyRef Name="Idx" />
-          </Key>
-          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityID" Type="Int64" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RowVersion" Type="Int64" Nullable="false" />
-          <Property Name="ScopeOfEOs" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="EmailSent" Type="Boolean" />
-          <Property Name="EmailSentDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Activity" Relationship="Self.FK_Assignment_Activity" FromRole="Assignment" ToRole="Activity" />
-          <NavigationProperty Name="Assignment1" Relationship="Self.FK_Assignment_Assignment" FromRole="Assignment" ToRole="Assignment1" />
-          <NavigationProperty Name="Assignment2" Relationship="Self.FK_Assignment_Assignment" FromRole="Assignment1" ToRole="Assignment" />
-          <NavigationProperty Name="SurveyorAssignmentRoles" Relationship="Self.FK_SurveyorRole_Assignment" FromRole="Assignment" ToRole="SurveyorAssignmentRole" />
-        </EntityType>
-        <EntityType Name="Status">
-          <Key>
-            <PropertyRef Name="Idx" />
-          </Key>
-          <Property Name="Idx" Type="Int32" Nullable="false" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RowVersion" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Activities" Relationship="Self.FK_Activity_Status" FromRole="Status" ToRole="Activity" />
-        </EntityType>
-        <EntityType Name="Surveyor">
-          <Key>
-            <PropertyRef Name="Idx" />
-          </Key>
-          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RowVersion" Type="Int64" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Token" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SurveyorAssignmentRoles" Relationship="Self.FK_SurveyorRole_Surveyor" FromRole="Surveyor" ToRole="SurveyorAssignmentRole" />
-        </EntityType>
-        <EntityType Name="SurveyorAssignmentRole">
-          <Key>
-            <PropertyRef Name="Idx" />
-          </Key>
-          <Property Name="Idx" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SurveyorID" Type="Int64" Nullable="false" />
-          <Property Name="RowVersion" Type="Int64" Nullable="false" />
-          <Property Name="AssignmentID" Type="Int64" Nullable="false" />
-          <Property Name="InActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Assignment" Relationship="Self.FK_SurveyorRole_Assignment" FromRole="SurveyorAssignmentRole" ToRole="Assignment" />
-          <NavigationProperty Name="Surveyor" Relationship="Self.FK_SurveyorRole_Surveyor" FromRole="SurveyorAssignmentRole" ToRole="Surveyor" />
-        </EntityType>
-        <Association Name="FK_Activity_ActivityType">
-          <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="1" />
-          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ActivityType">
-              <PropertyRef Name="Idx" />
-            </Principal>
-            <Dependent Role="Activity">
-              <PropertyRef Name="ActivityTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Activity_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="Idx" />
-            </Principal>
-            <Dependent Role="Activity">
-              <PropertyRef Name="StatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Assignment_Activity">
-          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Activity">
-              <PropertyRef Name="Idx" />
-            </Principal>
-            <Dependent Role="Assignment">
-              <PropertyRef Name="ActivityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Assignment_Assignment">
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
-          <End Role="Assignment1" Type="Self.Assignment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Assignment">
-              <PropertyRef Name="Idx" />
-            </Principal>
-            <Dependent Role="Assignment1">
-              <PropertyRef Name="Idx" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyorRole_Assignment">
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
-          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assignment">
-              <PropertyRef Name="Idx" />
-            </Principal>
-            <Dependent Role="SurveyorAssignmentRole">
-              <PropertyRef Name="AssignmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyorRole_Surveyor">
-          <End Role="Surveyor" Type="Self.Surveyor" Multiplicity="1" />
-          <End Role="SurveyorAssignmentRole" Type="Self.SurveyorAssignmentRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Surveyor">
-              <PropertyRef Name="Idx" />
-            </Principal>
-            <Dependent Role="SurveyorAssignmentRole">
-              <PropertyRef Name="SurveyorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PetDemoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Activities" EntityType="Self.Activity" />
-          <EntitySet Name="ActivityTypes" EntityType="Self.ActivityType" />
-          <EntitySet Name="Assignments" EntityType="Self.Assignment" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="Surveyors" EntityType="Self.Surveyor" />
-          <EntitySet Name="SurveyorAssignmentRoles" EntityType="Self.SurveyorAssignmentRole" />
-          <AssociationSet Name="FK_Activity_ActivityType" Association="Self.FK_Activity_ActivityType">
-            <End Role="ActivityType" EntitySet="ActivityTypes" />
-            <End Role="Activity" EntitySet="Activities" />
+          <EntitySet Name="Courses" EntityType="PetDemoModel.Course" />
+          <EntitySet Name="Standards" EntityType="PetDemoModel.Standard" />
+          <EntitySet Name="Students" EntityType="PetDemoModel.Student" />
+          <EntitySet Name="StudentAddresses" EntityType="PetDemoModel.StudentAddress" />
+          <EntitySet Name="Teachers" EntityType="PetDemoModel.Teacher" />
+          <EntitySet Name="View_StudentCourse" EntityType="PetDemoModel.View_StudentCourse" />
+          <AssociationSet Name="FK_Course_Teacher" Association="PetDemoModel.FK_Course_Teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
-          <AssociationSet Name="FK_Activity_Status" Association="Self.FK_Activity_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Activity" EntitySet="Activities" />
+          <AssociationSet Name="FK_Student_Standard" Association="PetDemoModel.FK_Student_Standard">
+            <End Role="Standard" EntitySet="Standards" />
+            <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assignment_Activity" Association="Self.FK_Assignment_Activity">
-            <End Role="Activity" EntitySet="Activities" />
-            <End Role="Assignment" EntitySet="Assignments" />
+          <AssociationSet Name="FK_Teacher_Standard" Association="PetDemoModel.FK_Teacher_Standard">
+            <End Role="Standard" EntitySet="Standards" />
+            <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assignment_Assignment" Association="Self.FK_Assignment_Assignment">
-            <End Role="Assignment" EntitySet="Assignments" />
-            <End Role="Assignment1" EntitySet="Assignments" />
+          <AssociationSet Name="FK_StudentAddress_Student" Association="PetDemoModel.FK_StudentAddress_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentAddress" EntitySet="StudentAddresses" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyorRole_Assignment" Association="Self.FK_SurveyorRole_Assignment">
-            <End Role="Assignment" EntitySet="Assignments" />
-            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRoles" />
+          <AssociationSet Name="StudentCourse" Association="PetDemoModel.StudentCourse">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyorRole_Surveyor" Association="Self.FK_SurveyorRole_Surveyor">
-            <End Role="Surveyor" EntitySet="Surveyors" />
-            <End Role="SurveyorAssignmentRole" EntitySet="SurveyorAssignmentRoles" />
-          </AssociationSet>
+          <FunctionImport Name="GetCoursesByStudentId" EntitySet="Courses" ReturnType="Collection(PetDemoModel.Course)">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteStudent">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertStudentInfo">
+            <Parameter Name="StandardId" Mode="In" Type="Int32" />
+            <Parameter Name="StudentName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateStudent">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+            <Parameter Name="StandardId" Mode="In" Type="Int32" />
+            <Parameter Name="StudentName" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="Geography" />
+          <Property Name="TeacherId" Type="Int32" />
+          <NavigationProperty Name="Teacher" Relationship="PetDemoModel.FK_Course_Teacher" FromRole="Course" ToRole="Teacher" />
+          <NavigationProperty Name="Students" Relationship="PetDemoModel.StudentCourse" FromRole="Course" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Standard">
+          <Key>
+            <PropertyRef Name="StandardId" />
+          </Key>
+          <Property Name="StandardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StandardName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Students" Relationship="PetDemoModel.FK_Student_Standard" FromRole="Standard" ToRole="Student" />
+          <NavigationProperty Name="Teachers" Relationship="PetDemoModel.FK_Teacher_Standard" FromRole="Standard" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StandardId" Type="Int32" />
+          <Property Name="RowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="None" />
+          <NavigationProperty Name="Standard" Relationship="PetDemoModel.FK_Student_Standard" FromRole="Student" ToRole="Standard" />
+          <NavigationProperty Name="StudentAddress" Relationship="PetDemoModel.FK_StudentAddress_Student" FromRole="Student" ToRole="StudentAddress" />
+          <NavigationProperty Name="Courses" Relationship="PetDemoModel.StudentCourse" FromRole="Student" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="StudentAddress">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="Address1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student" Relationship="PetDemoModel.FK_StudentAddress_Student" FromRole="StudentAddress" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="TeacherId" />
+          </Key>
+          <Property Name="TeacherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StandardId" Type="Int32" />
+          <Property Name="TeacherType" Type="PetDemoModel.TeacherType" />
+          <NavigationProperty Name="Courses" Relationship="PetDemoModel.FK_Course_Teacher" FromRole="Teacher" ToRole="Course" />
+          <NavigationProperty Name="Standard" Relationship="PetDemoModel.FK_Teacher_Standard" FromRole="Teacher" ToRole="Standard" />
+        </EntityType>
+        <EntityType Name="View_StudentCourse">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Course_Teacher">
+          <End Type="PetDemoModel.Teacher" Role="Teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PetDemoModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="TeacherId" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Standard">
+          <End Type="PetDemoModel.Standard" Role="Standard" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PetDemoModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Standard">
+              <PropertyRef Name="StandardId" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="StandardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_Standard">
+          <End Type="PetDemoModel.Standard" Role="Standard" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PetDemoModel.Teacher" Role="Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Standard">
+              <PropertyRef Name="StandardId" />
+            </Principal>
+            <Dependent Role="Teacher">
+              <PropertyRef Name="StandardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentAddress_Student">
+          <End Type="PetDemoModel.Student" Role="Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PetDemoModel.StudentAddress" Role="StudentAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentAddress">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StudentCourse">
+          <End Type="PetDemoModel.Course" Role="Course" Multiplicity="*" />
+          <End Type="PetDemoModel.Student" Role="Student" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="GetCoursesByStudentId_Result">
+          <Property Type="Int32" Name="courseid" Nullable="true" />
+          <Property Type="String" Name="coursename" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TeacherId" Nullable="true" />
+        </ComplexType>
+        <EnumType Name="TeacherType">
+          <Member Name="Permanent" Value="1" />
+          <Member Name="Contract" Value="2" />
+          <Member Name="Guest" Value="3" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PetDemoModelStoreContainer" CdmEntityContainer="PetDemoEntities">
-          <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="PetDemoModel.Activity">
-              <MappingFragment StoreEntitySet="Activity">
-                <ScalarProperty Name="Idx" ColumnName="Idx" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="BBPActivityID" ColumnName="BBPActivityID" />
-                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
-                <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="ScheduleDueDate" ColumnName="ScheduleDueDate" />
-                <ScalarProperty Name="Unannounced" ColumnName="Unannounced" />
-                <ScalarProperty Name="StandardsVersion" ColumnName="StandardsVersion" />
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="PetDemoModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ActivityTypes">
-            <EntityTypeMapping TypeName="PetDemoModel.ActivityType">
-              <MappingFragment StoreEntitySet="ActivityType">
-                <ScalarProperty Name="Idx" ColumnName="Idx" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
+          <EntitySetMapping Name="Standards">
+            <EntityTypeMapping TypeName="PetDemoModel.Standard">
+              <MappingFragment StoreEntitySet="Standard">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StandardName" ColumnName="StandardName" />
+                <ScalarProperty Name="StandardId" ColumnName="StandardId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Assignments">
-            <EntityTypeMapping TypeName="PetDemoModel.Assignment">
-              <MappingFragment StoreEntitySet="Assignment">
-                <ScalarProperty Name="Idx" ColumnName="Idx" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="PetDemoModel.Student">
+              <MappingFragment StoreEntitySet="Student">
                 <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
-                <ScalarProperty Name="ScopeOfEOs" ColumnName="ScopeOfEOs" />
-                <ScalarProperty Name="EmailSent" ColumnName="EmailSent" />
-                <ScalarProperty Name="EmailSentDate" ColumnName="EmailSentDate" />
+                <ScalarProperty Name="StandardId" ColumnName="StandardId" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="PetDemoModel.Status">
-              <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Idx" ColumnName="Idx" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+          <EntitySetMapping Name="StudentAddresses">
+            <EntityTypeMapping TypeName="PetDemoModel.StudentAddress">
+              <MappingFragment StoreEntitySet="StudentAddress">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Surveyors">
-            <EntityTypeMapping TypeName="PetDemoModel.Surveyor">
-              <MappingFragment StoreEntitySet="Surveyor">
-                <ScalarProperty Name="Idx" ColumnName="Idx" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="PetDemoModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="TeacherType" ColumnName="TeacherType" />
+                <ScalarProperty Name="StandardId" ColumnName="StandardId" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SurveyorAssignmentRoles">
-            <EntityTypeMapping TypeName="PetDemoModel.SurveyorAssignmentRole">
-              <MappingFragment StoreEntitySet="SurveyorAssignmentRole">
-                <ScalarProperty Name="Idx" ColumnName="Idx" />
-                <ScalarProperty Name="SurveyorID" ColumnName="SurveyorID" />
-                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
-                <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
-                <ScalarProperty Name="InActive" ColumnName="InActive" />
+          <EntitySetMapping Name="View_StudentCourse">
+            <EntityTypeMapping TypeName="PetDemoModel.View_StudentCourse">
+              <MappingFragment StoreEntitySet="View_StudentCourse">
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="StudentCourse" TypeName="PetDemoModel.StudentCourse" StoreEntitySet="StudentCourse">
+            <EndProperty Name="Student">
+              <ScalarProperty Name="StudentID" ColumnName="StudentId" />
+            </EndProperty>
+            <EndProperty Name="Course">
+              <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetCoursesByStudentId" FunctionName="PetDemoModel.Store.GetCoursesByStudentId">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DeleteStudent" FunctionName="PetDemoModel.Store.sp_DeleteStudent" />
+          <FunctionImportMapping FunctionImportName="sp_InsertStudentInfo" FunctionName="PetDemoModel.Store.sp_InsertStudentInfo" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateStudent" FunctionName="PetDemoModel.Store.sp_UpdateStudent" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

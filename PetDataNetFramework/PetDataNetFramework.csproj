@@ -51,13 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Activity.cs">
+    <Compile Include="Log\EFCommandInterceptor.cs" />
+    <Compile Include="Models\Course.cs">
       <DependentUpon>PetDemoEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ActivityType.cs">
-      <DependentUpon>PetDemoEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Assignment.cs">
+    <Compile Include="Models\GetCoursesByStudentId_Result.cs">
       <DependentUpon>PetDemoEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PetDemoEntities.Context.cs">
@@ -75,13 +73,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PetDemoEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Status.cs">
+    <Compile Include="Models\Standard.cs">
       <DependentUpon>PetDemoEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Surveyor.cs">
+    <Compile Include="Models\Student.cs">
       <DependentUpon>PetDemoEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SurveyorAssignmentRole.cs">
+    <Compile Include="Models\StudentAddress.cs">
+      <DependentUpon>PetDemoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Teacher.cs">
+      <DependentUpon>PetDemoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TeacherType.cs">
+      <DependentUpon>PetDemoEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_StudentCourse.cs">
       <DependentUpon>PetDemoEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="PetDataConnectionStringBuilder.cs" />
@@ -113,6 +120,9 @@
       <DependentUpon>PetDemoEntities.edmx</DependentUpon>
       <LastGenOutput>PetDemoEntities.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
